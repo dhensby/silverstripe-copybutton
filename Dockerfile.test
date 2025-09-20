@@ -1,4 +1,4 @@
-FROM --platform=linux/arm64 php:8.2-cli
+FROM --platform=linux/arm64 php:8.4-cli
 
 RUN apt-get update -qq \
     && apt-get install -y -qq git unzip libicu-dev libzip-dev > /dev/null 2>&1 \
