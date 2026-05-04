@@ -1,51 +1,78 @@
 silverstripe-copybutton
 =======================
 
-Adds copy button to the GridField
-
-## Maintainer Contact
-
-Elvinas Liutkevičius
-
-<elvinas (at) unisolutions (dot) eu>
+Adds a copy button to the GridField.
 
 ## Requirements
 
-SilverStripe 6
+- SilverStripe ^6
+- PHP ^8.3
 
-## Documentation
+## Installation
 
-Simply install the module using the standard method.
+```bash
+composer require dhensby/silverstripe-copybutton
+```
 
-To add the button to the GridField you need to extend ModelAdmin and
-override getEditForm() method like this:
+## Usage
 
-	function getEditForm($id = null, $fields = null) {
-		$form = parent::getEditForm();
+To add the button to the GridField, add `CopyButton` as a component. The most common place to do
+this is in a `ModelAdmin` by overriding `getEditForm()`:
 
-		$form
-			->Fields()
-			->fieldByName($this->sanitiseClassName($this->modelClass))
-			->getConfig()
-			->addComponent(new GridFieldCopyButton(), 'GridFieldEditButton') // or just ->addComponent(new GridFieldCopyButton())
-		;
+```php
+use Unisolutions\GridField\CopyButton;
 
-		return $form;
-	}
+public function getEditForm($id = null, $fields = null)
+{
+    $form = parent::getEditForm($id, $fields);
 
+    $form
+        ->Fields()
+        ->fieldByName($this->sanitiseClassName($this->modelClass))
+        ->getConfig()
+        ->addComponent(new CopyButton(), GridFieldEditButton::class);
 
-This action will make exact copy of the record (with all relations and etc.).
-Note: you have to set configs for cascading duplications in your DataObjects to duplicate relations
-See: https://docs.silverstripe.org/en/4/developer_guides/model/relations/#cascading-duplications
+    return $form;
+}
+```
 
-Sometimes you will need to do some actions just after copy operation (i.e.
-you'll need to remove some relations). It is easily achieved by extending
-DataObject and writing all the actions in the onAfterDuplicate() method.
+### Display modes
 
-	class SomeObjectExtension extends DataExtension {
+By default the copy button appears in the action menu dropdown for each row. Pass `true` to the
+constructor to render it as a standalone column button instead:
 
-		public function onAfterDuplicate() {
-			DB::query("delete from Member_SomeObject where SomeObjectID = ".$this->owner->ID);
-		}
+```php
+->addComponent(new CopyButton(true));
+```
 
-	}
+### Cascading duplications
+
+The copy action makes an exact duplicate of the record. To also duplicate relations, configure
+cascading duplications on your `DataObject`:
+
+See: https://docs.silverstripe.org/en/6/developer_guides/model/relations/#cascading-duplications
+
+### Post-copy hook
+
+To run custom logic after a record is copied (e.g. clearing certain relations), implement
+`onAfterDuplicate()` on the `DataObject` or an extension:
+
+```php
+class MyDataObjectExtension extends DataExtension
+{
+    public function onAfterDuplicate(DataObject $original, bool $doWrite): void
+    {
+        // e.g. clear a relation on the new copy
+        $this->owner->Tags()->removeAll();
+    }
+}
+```
+
+## Maintainer
+
+Originally authored by Elvinas Liutkevičius <elvinas@unisolutions.eu>.  
+Currently maintained by [dhensby](https://github.com/dhensby).
+
+## License
+
+BSD — see [silverstripe.org/BSD-license](http://silverstripe.org/BSD-license)
