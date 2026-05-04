@@ -11,7 +11,7 @@ use SilverStripe\Forms\Form;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldConfig;
 use SilverStripe\Forms\GridField\GridField_ActionMenuItem;
-use SilverStripe\ORM\ValidationException;
+use SilverStripe\Core\Validation\ValidationException;
 use Unisolutions\GridField\CopyButton;
 use Unisolutions\Tests\GridField\Fixtures\TestController;
 use Unisolutions\Tests\GridField\Fixtures\TestRecord;

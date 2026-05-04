@@ -11,7 +11,7 @@ Elvinas Liutkevičius
 
 ## Requirements
 
-SilverStripe 4
+SilverStripe 6
 
 ## Documentation
 
