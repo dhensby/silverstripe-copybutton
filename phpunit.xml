@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
+         bootstrap="vendor/silverstripe/framework/tests/bootstrap.php"
+         colors="true"
+         beStrictAboutOutputDuringTests="true"
+>
+    <testsuites>
+        <testsuite name="Default">
+            <directory>tests/</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <env name="SS_DATABASE_CLASS" value="MySQLDatabase"/>
+        <env name="SS_DATABASE_SERVER" value="127.0.0.1"/>
+        <env name="SS_DATABASE_USERNAME" value="root"/>
+        <env name="SS_DATABASE_PASSWORD" value=""/>
+        <env name="SS_DATABASE_NAME" value="test_database"/>
+        <env name="SS_DEFAULT_ADMIN_USERNAME" value="admin"/>
+        <env name="SS_DEFAULT_ADMIN_PASSWORD" value="admin"/>
+    </php>
+</phpunit>
