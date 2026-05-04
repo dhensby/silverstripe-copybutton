@@ -1,0 +1,5 @@
+Unisolutions\Tests\GridField\Fixtures\TestRecord:
+  record1:
+    Title: Test Record 1
+  record2:
+    Title: Test Record 2

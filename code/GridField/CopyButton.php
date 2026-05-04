@@ -21,7 +21,6 @@ use SilverStripe\ORM\ValidationException;
  */
 class CopyButton implements GridField_ColumnProvider, GridField_ActionProvider, GridField_ActionMenuItem
 {
-
     private $useAsColumn;
 
     public function __construct(bool $useAsColumn = false)
@@ -60,7 +59,7 @@ class CopyButton implements GridField_ColumnProvider, GridField_ActionProvider, 
 
     public function getColumnContent($gridField, $record, $columnName)
     {
-        if($this->useAsColumn === false){
+        if ($this->useAsColumn === false) {
             return;
         }
 
@@ -78,7 +77,7 @@ class CopyButton implements GridField_ColumnProvider, GridField_ActionProvider, 
         $title = _t('GridAction.Copy', 'Copy');
         $field = GridField_FormAction::create(
             $gridField,
-            'CopyRecord'.$record->ID,
+            'CopyRecord' . $record->ID,
             false,
             "copyrecord",
             ['RecordID' => $record->ID]
@@ -103,7 +102,9 @@ class CopyButton implements GridField_ColumnProvider, GridField_ActionProvider, 
 
             if (!$item->canCreate()) {
                 throw new ValidationException(
-                    _t('GridFieldAction_Copy.CreatePermissionsFailure', "No create permissions"), 0);
+                    _t('GridFieldAction_Copy.CreatePermissionsFailure', "No create permissions"),
+                    0
+                );
             }
 
             $clone = $item->duplicate();
@@ -115,7 +116,7 @@ class CopyButton implements GridField_ColumnProvider, GridField_ActionProvider, 
 
     public function getTitle($gridField, $record, $columnName)
     {
-        if($this->useAsColumn){
+        if ($this->useAsColumn) {
             return;
         }
 
@@ -124,7 +125,7 @@ class CopyButton implements GridField_ColumnProvider, GridField_ActionProvider, 
 
     public function getExtraData($gridField, $record, $columnName)
     {
-        if($this->useAsColumn){
+        if ($this->useAsColumn) {
             return;
         }
 
@@ -139,11 +140,10 @@ class CopyButton implements GridField_ColumnProvider, GridField_ActionProvider, 
 
     public function getGroup($gridField, $record, $columnName)
     {
-        if($this->useAsColumn){
+        if ($this->useAsColumn) {
             return;
         }
 
         return GridField_ActionMenuItem::DEFAULT_GROUP;
     }
-
 }
