@@ -25,6 +25,11 @@
     "replace": {
         "unisolutions/silverstripe-copybutton": "self.version"
     },
+    "config":{
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "2.x-dev"
